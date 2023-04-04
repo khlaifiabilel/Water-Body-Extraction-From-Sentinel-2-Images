@@ -1,4 +1,5 @@
 
+
 from keras.models import Model
 from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.convolutional import Convolution2D
@@ -47,7 +48,8 @@ def model(img_dim, nb_classes, depth=40, nb_dense_block=3, growth_rate=12, nb_fi
     # The last dense_block does not have a transition_block
     x, nb_filter = dense_block(x, nb_layers, nb_filter, growth_rate, dropout_rate=dropout_rate,
                                weight_decay=weight_decay)
-
+# you may consider changing the activation function into a new one 
+# I suggest the Selu function.
     x = Activation('relu')(x)
     x = GlobalAveragePooling2D()(x)
     x = Dense(nb_classes, activation='softmax', kernel_regularizer=l2(weight_decay), bias_regularizer=l2(weight_decay))(x)
